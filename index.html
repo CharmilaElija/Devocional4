@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30 Dias - Charmila Elija</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',sans-serif;background:#f5f3ff;color:#4c1d95}
+.hero{
+    min-height:80vh;
+    background: linear-gradient(90deg, rgba(76,29,149,0.9) 0%, rgba(124,58,237,0.6) 50%, rgba(167,139,250,0.3) 100%), url('IMG_9525.jpeg');
+    background-size:cover; background-position:center top;
+    display:flex; align-items:center; padding:30px; color:white;
+  }
+.hero-content{max-width:600px}
+.logo{font-size:12px; letter-spacing:3px; opacity:0.8; margin-bottom:50px; display:block; font-weight:600}
+.hero h1{font-family:'Anton',sans-serif; font-size:48px; line-height:0.95; text-transform:uppercase}
+.hero p{margin:15px 0 20px 0; opacity:0.9}
+.btn{background:#ede9fe; color:#5b21b6; border:none; padding:14px 32px; border-radius:100px; font-weight:700; cursor:pointer}
+.lembrete{background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.4); padding:14px; border-radius:14px; margin-top:20px; backdrop-filter:blur(8px)}
+.lembrete input{padding:6px 10px; border-radius:6px; border:none; margin:0 6px; font-weight:700; color:#5b21b6}
+.lembrete button{padding:6px 12px; border-radius:100px; border:none; background:white; color:#5b21b6; font-weight:700; cursor:pointer}
+.container{max-width:750px;margin:0 auto;padding:20px}
+.menu{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:20px 0}
+.menu button{padding:10px; border-radius:10px; border:1px solid #ddd6fe; background:white; color:#7c3aed; font-weight:700; cursor:pointer}
+.menu button.active{background:#7c3aed;color:white}
+.card{background:white;border-radius:18px;padding:28px;box-shadow:0 8px 20px rgba(124,58,237,0.08)}
+.card h2{font-family:'Anton',sans-serif; font-size:22px; color:#5b21b6; text-transform:uppercase}
+.versiculo{background:#7c3aed;color:white; display:inline-block; padding:5px 12px; border-radius:100px; font-size:11px; margin:12px 0; font-weight:700}
+.bloco{background:#f5f3ff;padding:16px;border-radius:12px;margin:14px 0;border-left:4px solid #a78bfa}
+.nav{display:flex;gap:10px;margin-top:20px}
+.nav button{flex:1;background:#7c3aed;color:white;border:none;padding:14px;border-radius:100px;font-weight:700;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-content">
+    <span class="logo">ROXO CLARO EDITION</span>
+    <h1>30 DIAS DE<br>DECLARAÇÕES<br>& ORAÇÕES</h1>
+    <p>Eu sou quem Deus diz que eu sou - Charmila Elija</p>
+    <button class="btn" onclick="document.querySelector('.container').scrollIntoView({behavior:'smooth'})">Começar Agora</button>
+
+    <div class="lembrete">
+      <div style="font-size:12px; font-weight:700; margin-bottom:6px">⏰ LEMBRETE DIÁRIO</div>
+      <div style="font-size:12px">
+        Me lembrar às <input type="time" id="hora" value="05:00">
+        <button onclick="ativar()">ATIVAR</button>
+        <button onclick="desativar()" style="background:transparent; color:white; border:1px solid white">DESATIVAR</button>
+      </div>
+      <div id="status" style="font-size:11px; margin-top:6px"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="menu" id="menu"></div>
+  <div class="card" id="card"></div>
+  <div class="nav">
+    <button onclick="mudar(-1)">← ANTERIOR</button>
+    <button onclick="mudar(1)">PRÓXIMO →</button>
+  </div>
+</div>
+
+<script>
+const devocional=[
+{t:"Dia 1 - Eu sou amada e escolhida",v:"Efésios 1:4",d:"Eu sou escolhida, amada e aceita por Deus desde antes da fundação do mundo. Charmila, você é especial!",o:"Pai, obrigada por me escolher. Hoje eu, Charmila, recebo Teu amor. Amém."},
+{t:"Dia 2 - Eu tenho paz",v:"Filipenses 4:7",d:"Eu, Charmila Elija, tenho a paz de Deus guardando meu coração.",o:"Senhor, entrego minha ansiedade. Tua paz guarda meu coração. Amém."},
+{t:"Dia 3 - Eu sou forte e corajosa",v:"Isaías 41:10",d:"Eu, Charmila, sou forte e corajosa. Deus está comigo.",o:"Deus, quando sou fraca Tu és minha força. Amém."},
+{t:"Dia 4 - Meu futuro é de esperança",v:"Jeremias 29:11",d:"O futuro de Charmila está nas mãos de Deus e é de paz.",o:"Pai, confio nos Teus planos para mim. Amém."},
+{t:"Dia 5 - Eu sou perdoada",v:"1 João 1:9",d:"Eu, Charmila, sou perdoada pelo sangue de Jesus.",o:"Obrigada Jesus pelo perdão. Amém."},
+{t:"Dia 6 - Sou mais que vencedora",v:"Romanos 8:37",d:"Em tudo Charmila é mais que vencedora.",o:"Hoje declaro vitória em Cristo. Amém."},
+{t:"Dia 7 - Sou grata e abençoada",v:"Salmos 103:2",d:"Charmila é abençoada com todos benefícios de Deus.",o:"Abre meus olhos para minhas bênçãos. Amém."},
+{t:"Dia 8 - Sou curada",v:"Isaías 53:5",d:"Pelas feridas de Jesus Charmila foi sarada.",o:"Jesus, recebo Tua cura. Amém."},
+{t:"Dia 9 - Tenho alegria",v:"Neemias 8:10",d:"A alegria do Senhor é a força de Charmila.",o:"Enche-me de alegria hoje. Amém."},
+{t:"Dia 10 - Sou confiante",v:"Salmos 27:1",d:"O Senhor é luz de Charmila, de quem terei medo?",o:"Tira todo medo de mim. Amém."},
+{t:"Dia 11 - Tenho sabedoria",v:"Tiago 1:5",d:"Deus dá sabedoria a Charmila generosamente.",o:"Me guia hoje com sabedoria. Amém."},
+{t:"Dia 12 - Sou paciente",v:"Salmos 40:1",d:"Charmila espera com paciência no Senhor.",o:"Ensina-me a esperar Teu tempo. Amém."},
+{t:"Dia 13 - Sou amada",v:"Romanos 8:38",d:"Nada separa Charmila do amor de Deus.",o:"Obrigada por nunca desistir de mim. Amém."},
+{t:"Dia 14 - Tenho domínio próprio",v:"2 Timóteo 1:7",d:"Deus deu a Charmila espírito de poder e equilíbrio.",o:"Domina minhas emoções hoje. Amém."},
+{t:"Dia 15 - Tenho propósito",v:"Efésios 2:10",d:"Charmila foi criada por Deus para boas obras.",o:"Mostra-me meu propósito. Amém."},
+{t:"Dia 16 - Sou guiada",v:"Salmos 32:8",d:"O Senhor instrui Charmila no caminho.",o:"Guia meus passos hoje. Amém."},
+{t:"Dia 17 - Nada me faltará",v:"Salmos 23:1",d:"O Senhor é Pastor de Charmila e nada faltará.",o:"Obrigada por cuidares de mim. Amém."},
+{t:"Dia 18 - Sou nova criatura",v:"2 Coríntios 5:17",d:"Charmila é nova criatura em Cristo.",o:"Deixo o passado para trás hoje. Amém."},
+{t:"Dia 19 - Tenho fé",v:"Mateus 17:20",d:"Charmila tem fé que move montanhas.",o:"Aumenta minha fé. Amém."},
+{t:"Dia 20 - Sou resiliente",v:"Salmos 46:1",d:"Deus é refúgio de Charmila.",o:"Me sustenta quando quiser desistir. Amém."},
+{t:"Dia 21 - Cheia do Espírito",v:"Atos 1:8",d:"Charmila recebe poder do Espírito Santo.",o:"Me enche de novo hoje. Amém."},
+{t:"Dia 22 - Sou luz",v:"Mateus 5:14",d:"Charmila é luz do mundo.",o:"Que minha luz brilhe hoje. Amém."},
+{t:"Dia 23 - Abençoada para abençoar",v:"Gênesis 12:2",d:"Charmila é abençoada para ser bênção.",o:"Usa-me para abençoar alguém. Amém."},
+{t:"Dia 24 - Palavras têm poder",v:"Provérbios 18:21",d:"Vida e morte estão na língua de Charmila.",o:"Guarda minha boca hoje. Amém."},
+{t:"Dia 25 - Sou próspera",v:"Salmos 1:3",d:"Tudo que Charmila fizer prosperará.",o:"Abençoa o trabalho das minhas mãos. Amém."},
+{t:"Dia 26 - Meu lar tem paz",v:"Josué 24:15",d:"Charmila e sua casa servirão ao Senhor.",o:"Traz paz ao meu lar. Amém."},
+{t:"Dia 27 - Corajosa para recomeçar",v:"Deuteronômio 31:6",d:"Charmila é forte e corajosa.",o:"Me dá coragem para recomeçar. Amém."},
+{t:"Dia 28 - Curada no corpo e alma",v:"Êxodo 15:26",d:"O Senhor é médico de Charmila.",o:"Toca meu corpo e coração. Amém."},
+{t:"Dia 29 - Protegida",v:"Salmos 91:11",d:"Anjos guardam Charmila por ordem de Deus.",o:"Guarda-me de todo mal hoje. Amém."},
+{t:"Dia 30 - Infinitamente amada",v:"Sofonias 3:17",d:"Deus está no meio de Charmila como poderoso para salvar.",o:"Obrigada por esses 30 dias. Sou completa em Ti. Amém."}
+];
+let atual=0;
+const menu=document.getElementById('menu');
+const card=document.getElementById('card');
+devocional.forEach((_,i)=>{const b=document.createElement('button');b.innerText=i+1;b.onclick=()=>mostrar(i);menu.appendChild(b);});
+function mostrar(i){atual=i;const x=devocional[i];card.innerHTML=`<h2>${x.t}</h2><div class="versiculo">${x.v}</div><div class="bloco"><b>DECLARAÇÃO:</b><br>${x.d}</div><div class="bloco"><b>ORAÇÃO:</b><br>${x.o}</div><div style="margin-top:10px;font-size:11px;opacity:0.5">Dia ${i+1} de 30 • Charmila Elija</div>`;document.querySelectorAll('.menu button').forEach((b,idx)=>b.classList.toggle('active',idx===i));localStorage.setItem('diaCharmila',i);}
+function mudar(d){let n=atual+d;if(n<0)n=29;if(n>29)n=0;mostrar(n);}
+
+// LEMBRETE
+let timer=null;
+function ativar(){const h=document.getElementById('hora').value;if(!h)return alert('Escolhe hora!');if(Notification&&Notification.permission!=='granted'){Notification.requestPermission();}localStorage.setItem('horaCharmila',h);document.getElementById('status').innerText='✅ Ativo às '+h+' todos os dias';if(timer)clearInterval(timer);timer=setInterval(checar,60000);checar();alert('Lembrete ativado às '+h);}
+function desativar(){localStorage.removeItem('horaCharmila');if(timer)clearInterval(timer);document.getElementById('status').innerText='❌ Desativado';}
+function checar(){const hs=localStorage.getItem('horaCharmila');if(!hs)return;const ag=new Date();const ha=ag.getHours().toString().padStart(2,'0')+':'+ag.getMinutes().toString().padStart(2,'0');if(ha===hs){const d=parseInt(localStorage.getItem('diaCharmila')||0)+1;if(Notification&&Notification.permission==='granted'){new Notification('Charmila, hora do devocional 💜',{body:'Hoje é Dia '+d+' - Deus tem palavra para você!',icon:'IMG_9525.jpeg'});}else{alert('💜 Charmila, hora do Dia '+d+'!');}}}
+const ds=localStorage.getItem('diaCharmila');mostrar(ds?parseInt(ds):0);
+const hs=localStorage.getItem('horaCharmila');if(hs){document.getElementById('hora').value=hs;document.getElementById('status').innerText='✅ Ativo às '+hs;timer=setInterval(checar,60000);}
+</script>
+</body>
+</html>
